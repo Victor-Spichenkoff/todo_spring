@@ -1,4 +1,8 @@
 package com.example.vss.trab.dtos;
 
-public record CreateTarefaDto() {
+import java.util.Date;
+
+public record CreateTarefaDto(String nomeTarefa,
+                              String responsavel,
+                              Date dataEntrega) {
 }
