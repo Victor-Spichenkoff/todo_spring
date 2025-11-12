@@ -1,6 +1,7 @@
 package com.example.vss.trab.controllers;
 
 import com.example.vss.trab.dtos.CreateTarefaDto;
+import com.example.vss.trab.dtos.UpdateTarefaDto;
 import com.example.vss.trab.dtos.mappers.TarefaMapper;
 import com.example.vss.trab.models.Tarefa;
 import com.example.vss.trab.repositories.TarefaRepository;
@@ -28,6 +29,14 @@ public class TarefaController {
         return ResponseEntity.ok().body(tarefas);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@Param("id") int id) {
+        var tarefa = tarefaRepository.findById(id);
+        if(tarefa.isEmpty())
+            return ResponseEntity.status(404).body("Tarefa Inexistente");
+        return ResponseEntity.ok().body(tarefa);
+    }
+
 
     @PostMapping("")
     public ResponseEntity<Tarefa> create(@RequestBody CreateTarefaDto tarefaDto)  {
@@ -42,10 +51,26 @@ public class TarefaController {
     @PatchMapping("/{id}")
     public ResponseEntity<Tarefa> update(
             @Param("id") int id,
-            @RequestBody CreateTarefaDto updateTarefaDto) {
+            @RequestBody UpdateTarefaDto updateTarefaDto) {
         Tarefa tarefa = tarefaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
         mapper.updateUserFromDto(updateTarefaDto, tarefa);
+
+        var result = tarefaRepository.save(tarefa);
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tarefa> updateAll(
+            @Param("id") int id,
+            @RequestBody CreateTarefaDto updateTarefaDto) {
+        Tarefa tarefa = tarefaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+
+        tarefa.setNomeTarefa(updateTarefaDto.nomeTarefa());
+        tarefa.setDataEntrega(updateTarefaDto.dataEntrega());
+        tarefa.setResponsavel(updateTarefaDto.responsavel());
 
         var result = tarefaRepository.save(tarefa);
 
