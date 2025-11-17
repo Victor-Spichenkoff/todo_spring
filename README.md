@@ -1,3 +1,16 @@
+# Projeto Faculdade
+- API com Spring para controlar tarefas
+
+# Uso do Swagger
+- Selecione um dos endpoints
+- Clique em "Try it out"
+- Preencha, se existir, o campo de parâmetro e/ou corpo
+- Clique em "execute"
+- A resposta aparecerá um pouco mais a baixo em "Response body"
+
+- DICA: Ao enviar um objeto no corpo, nunca deixe uma ``,`` no final
+
+
 # DADOS PARA SEED
 ```
 [

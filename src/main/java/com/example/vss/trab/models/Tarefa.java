@@ -14,7 +14,6 @@ public class Tarefa {
     @Column(unique = true, nullable = false)
     private String nomeTarefa;
 
-
     @Column(nullable = false)
     private String responsavel;
 
